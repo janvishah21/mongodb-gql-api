@@ -21,6 +21,11 @@ export const resolvers = {
             await author.save();
             return author;
         },
+        updateAuthor: async (_, { id, name }) => {
+            let author = await Author.findByIdAndUpdate(id, { name });
+            author = await Author.findById(id);
+            return author;
+        },
         addBook: async (_, { name, authorName }) => {
             const author = await Author.findOne({ name: authorName.trim() });
             let authorId;
@@ -34,6 +39,26 @@ export const resolvers = {
             const book = new Book({ name, authorId });
             await book.save();
             return book;
-        }
+        },
+        updateBook: async (_, { id, name, authorName }) => {
+            let update = {};
+            if(authorName) {
+                const author = await Author.findOne({ name: authorName.trim() });
+                let authorId;
+                if(!author) {
+                    const author = new Author({ name: authorName });
+                    console.log('New Author Created');
+                    await author.save();
+                    authorId = author.id;
+                } else
+                    authorId = author.id;
+                update.authorId = authorId;
+            }
+            if(name)
+                update.name = name;
+            let book = await Book.findByIdAndUpdate(id, update);
+            book = await Book.findById(id);
+            return book;
+        },
     }
 };
