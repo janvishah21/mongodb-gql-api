@@ -11,8 +11,10 @@ export const typeDefs = gql`
     type Mutation {
         addAuthor(name: String!): Author!
         updateAuthor(id: String!, name: String): Author!
+        deleteAuthor(id: String!): Author!
         addBook(name: String!, authorName: String): Book!
         updateBook(id: String!, name: String, authorName: String): Book!
+        deleteBook(id: String!): Book!
     }
     type Book {
         id: ID!

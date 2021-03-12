@@ -1,0 +1,87 @@
+query authors {
+  authors {
+    id
+    name
+    books {
+      name
+    }
+  }
+}
+
+query books {
+  books {
+    id
+    name
+    author {
+      name
+    }
+  }
+}
+
+query author($authorId: String!) {
+  author(id: $authorId) {
+    id
+    name
+  }
+}
+
+query book($bookId: String!) {
+  book(id: $bookId) {
+    id
+    name
+    author {
+      name
+    }
+  }
+}
+
+mutation addAuthor {
+  addAuthor(name: "Author Three") {
+    id
+    name
+  }
+}
+
+mutation updateAuthor($authorId: String!) {
+  updateAuthor(id: $authorId, name: "Author Two") {
+    id
+    name
+  }
+}
+
+mutation deleteAuthor($authorId: String!) {
+  deleteAuthor(id: $authorId) {
+    id
+    name
+  }
+}
+
+mutation addBook {
+  addBook(name: "Book Three", authorName: "Author Four") {
+    id
+    name
+    author {
+      name
+    }
+  }
+}
+
+mutation updateBook($bookId: String!) {
+  updateBook(id: $bookId, name: "Book Two") {
+    id
+    name
+    author {
+      name
+    }
+  }
+}
+
+mutation deleteBook($bookId: String!) {
+  deleteBook(id: $bookId) {
+    id
+    name
+    author {
+      name
+    }
+  }
+}

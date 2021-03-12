@@ -22,8 +22,15 @@ export const resolvers = {
             return author;
         },
         updateAuthor: async (_, { id, name }) => {
-            let author = await Author.findByIdAndUpdate(id, { name });
-            author = await Author.findById(id);
+            if(name) {
+                let author = await Author.findByIdAndUpdate(id, { name });
+                author = await Author.findById(id);
+                return author;
+            }
+            return null;
+        },
+        deleteAuthor: async (_, { id }) => {
+            const author = Author.findByIdAndDelete(id);
             return author;
         },
         addBook: async (_, { name, authorName }) => {
@@ -58,6 +65,10 @@ export const resolvers = {
                 update.name = name;
             let book = await Book.findByIdAndUpdate(id, update);
             book = await Book.findById(id);
+            return book;
+        },
+        deleteBook: async (_, { id }) => {
+            const book = Book.findByIdAndDelete(id);
             return book;
         },
     }
