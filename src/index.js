@@ -20,9 +20,10 @@ const startServer = async () => {
         useUnifiedTopology: true
     }).catch(e => console.log(e));
 
-    app.listen({ port: 4000 }, () =>
+    app.listen({ port: 4000 }, () => {
+        mongoose.connection.db.dropDatabase();
         console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-    );
+    });
 };
 
 startServer();
